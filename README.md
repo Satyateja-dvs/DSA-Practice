@@ -262,4 +262,104 @@ bubbleSort(arr) => Should return [-6, -2, 4, 8, 20]
 ```
 
 #### Time Complexity
-Our code has 2 loops, for loop is nested inside do-while loop. From our sheet its pretty evident that it is quadratic time complexity
+Our code has 2 loops, for loop is nested inside do-while loop. From our sheet its pretty evident that it is quadratic time complexity 0(n^2)
+ - If the array size increases, the number of comparisons increases for that square of a number.
+ - Quadratic time complexity is great for sorting.
+
+
+## Insertion Sort
+
+### Problem - Given an array of integers, sort the array.
+const arr= [-6, 20, 8, -2, 4]
+insertionSort(arr) => Should return [-6, -2, 4, 8, 20]
+
+### Insertion Sort Idea
+- Virtually split the array into a sorted and an unsorted part
+- Assume that the first element is already sorted and remaining elements are unsorted
+- Select an unsorted element and compare with all elements in the sorted part
+- If the elements in the sorted part is smaller than the selected element, proceed to the next element in the unsorted part. Else, shift larger elements in the sorted part towards the right.
+- Insert the selected element at the right index
+- Repeat till all the unsorted elements are placed in the right order
+
+### Insertion Sort Example
+![Insertion Sort](assets/insertion-sort-example.png)
+
+```jsx
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let numberToInsert = arr[i];
+    let j = i - 1;
+
+    while (j >= 0 && arr[j] > numberToInsert) {
+      arr[j + 1] = arr[j]; // Shift element right
+      j--;
+    }
+
+    arr[j + 1] = numberToInsert; // Insert at correct position
+  }
+
+  return arr;
+}
+
+```
+#### Time Complexity
+Big 0 - O(n^2)
+
+## Quick sort
+### Problem - Given an array of integers, sort the array.
+const arr= [-6, 20, 8, -2, 4]
+quickSort(arr) => Should return [-6, -2, 4, 8, 20]
+
+### Quick sort idea
+1. Identify the pivot element in the array
+  • Pick first element as pivot
+  • Pick last element as pivot (Our approach)
+  • Pick a random element as pivot
+  • Pick median as pivot
+2. Put everything that's smaller than the pivot into a 'left' array and everything that's greater than the pivot into a 'right' array
+3. Repeat the process for the individual 'left' and 'right' arrays till you have an array of length 1 which is sorted by definition
+4. Repeatedly concatenate the left array, pivot and right array till one sorted array remains
+
+### Quick Sort Example
+![Quick Sort Example](assets/quick-sort-example.png)
+
+```jsx
+function quickSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  let pivotEle = arr[arr.length - 1]
+  let leftArr = []
+  let rightArr = []
+  for(let i= 0; i<arr.length -1; i++) {
+    if(arr[i] < pivotEle) {
+      leftArr.push(arr[i])
+    }
+    else {
+      rightArr.push(arr[i])
+    }
+  }
+  return [...quickSort(leftArr), pivotEle, ...quickSort(rightArr)]
+}
+
+console.log(quickSort([-6, 20, 8, -2, 4])) // [ -6, -2, 4, 8, 20 ]
+```
+
+#### Time Complexity
+If the array is already sorted ---> Worst case Big 0 - O(n^2) & Avg case is O(nlog n)
+
+> The average time complexity of Quick Sort is O(nlog n)
+
+## Merge Sort
+
+### Problem - Given an array of integers, sort the array.
+const arr = [-6, 20, 8, -2, 4]
+mergeSort(arr) => Should return [-6, -2, 4, 8, 20]
+
+### Merge Sort Idea
+1. Divide the array into sub arays, each containing only one element (An tray with one element is Considered Sorted)
+2. Repeatedly merge the sub arrays to produce new sorted sub arrays until there is only one sub array remaining. That will be the sorted array.
+
+![Merge Sort Example](assets/merge-sort-example-1.png)
+![Merge Sort Example](assets/merge-sort-example-2.png)
+
+
