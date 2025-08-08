@@ -312,10 +312,10 @@ quickSort(arr) => Should return [-6, -2, 4, 8, 20]
 
 ### Quick sort idea
 1. Identify the pivot element in the array
-  • Pick first element as pivot
-  • Pick last element as pivot (Our approach)
-  • Pick a random element as pivot
-  • Pick median as pivot
+  - Pick first element as pivot
+  - Pick last element as pivot (Our approach)
+  - Pick a random element as pivot
+  - Pick median as pivot
 2. Put everything that's smaller than the pivot into a 'left' array and everything that's greater than the pivot into a 'right' array
 3. Repeat the process for the individual 'left' and 'right' arrays till you have an array of length 1 which is sorted by definition
 4. Repeatedly concatenate the left array, pivot and right array till one sorted array remains
@@ -362,4 +362,135 @@ mergeSort(arr) => Should return [-6, -2, 4, 8, 20]
 ![Merge Sort Example](assets/merge-sort-example-1.png)
 ![Merge Sort Example](assets/merge-sort-example-2.png)
 
+# Misc Problems (Miscellaneous Problems)
+1. Cartesian Product
+2. Climbing Staircase
+3. Tower of Hanoi
 
+## 1. Cartesian Product
+
+### Problem - Given two finite non-empty sets, find their Cartesian Product.
+In mathematics, specifically set theory, the Cartesian product of two sets A and B, denoted AxB, is the set of all ordered pairs (a, b) where a is in A and b is in B
+
+const A = [1, 2]
+const B = [3, 4]
+
+AxB = [ [1, 3], [1, 4], [2, 3], [2, 4]]
+
+const C = [1, 2]
+const D = [3, 4, 5]
+
+CxD = [ [1, 3], [1, 4], [1, 5], [2, 3], [2, 4], [2, 5] ]
+
+```jsx
+const A = [1, 2]
+const B = [3, 4]
+let result = []
+
+function cartesianProduct(a, b) {
+  for(let i=0; i<=a.length - 1; i++) {
+    for(let j = 0; j<=b.length-1; j++) {
+      result.push([a[i], b[j]])
+    }
+  }
+
+  return result 
+}
+
+console.log(cartesianProduct(A, B))
+```
+
+### Time Complexity
+
+Big 0 - O(n^2)
+
+## 2. Climbing Stair Case
+
+### Problem - Given a staircase of 'n' steps, count the number of distinct ways to climb to the top.
+You can either climb 1 step or 2 steps at a time.
+
+#### Example
+n=1, climbingStaircase(1) = 1     | (1)
+n=2, climbingStaircase(2) = 2     | (1, 1) and (2)
+n=3, climbingStaircase(3) = 3     | (1,1,1) (1, 2) and (2, 1)
+n=4, climbingStaircase(4) = 5     | (1,1,1,1) (1,1,2) (1,2,1) (2,1,1) and (2,2)
+
+#### Solution
+
+- For reaching n steps, the chances are of two ways 1 step or 2 steps. Now, the solution to reach n steps are n-1 or n-2
+
+> climbingStaircase(n) = climbingStaircase(n - 1) + climbingStaircase(n - 2)
+
+The above looks like fibonnaci
+
+```jsx
+function climbingStaircase(n) {
+    let noOfWays = [1, 2]
+    for(let i =2; i<=n; i++) {
+        noOfWays[i] = noOfWays[i - 1] + noOfWays[i - 2]
+    }
+    return noOfWays[n-1]
+    
+}
+
+console.log(climbingStaircase(1)) // 1
+console.log(climbingStaircase(2)) // 2
+console.log(climbingStaircase(3)) // 3
+console.log(climbingStaircase(4)) // 5
+console.log(climbingStaircase(5)) // 8
+```
+
+### Time Complexity
+
+Big 0 - O(n)
+
+## 3. Tower of Hanoi
+The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:
+
+1. Only one disk may be moved at a time.
+2. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod. And lastly,
+3. No disk may be placed on top of a disk that is smaller.
+
+![Tower of Honai](assets/tower-of-honai.png)
+
+### Example Tower of Honai - 2 disks
+![Tower of Honai 2 Disks](assets/tower-of-honai-2disks.png)
+
+### Example Tower of Honai - 3 disks
+![Tower of Honai 3 Disks](assets/tower-of-honai-3-disks.png)
+
+```jsx
+
+function towerOfHonai(n, fromRod, usingRod, toRod) {
+  if (n == 1) {
+    console.log("Move "+ n +" from " + fromRod + " to " + toRod)
+    return
+  }
+  towerOfHonai(n - 1, fromRod, toRod, usingRod)
+  console.log("Move "+ n +" from " + fromRod + " to " + toRod)
+  towerOfHonai(n - 1, usingRod, fromRod, fromRod)
+}
+
+//console.log(towerOfHonai(1, "A", "B", "C")) // 1
+console.log(towerOfHonai(2, "A", "B", "C")) // 2
+```
+
+### Time Complexity
+
+Big 0 - O(2 ^ n)
+
+
+# Recap
+![Recap](assets/recap.png)
+
+## Algorithm Techniques
+![Techniques](assets/algorithms-technique.png)
+
+## Next Steps
+
+Solve more problems
+1. Finding the GCD using Euclidian algorithm
+2. Finding permutations and combinations of a list of numbers
+3. Finding the longest common substring in a given string
+4. Knapsack problem
+Watch the upcoming JavaScript Data Structures course
